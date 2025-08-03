@@ -4,15 +4,17 @@ import {version} from "@/init";
 import figlet from "figlet";
 
 document.addEventListener('DOMContentLoaded', function () {
-    startOutput();
+    startFakeOutput();
 });
 
-async function startOutput(){
+async function startFakeOutput(){
     const so:HTMLElement=document.getElementById("startOutput")!;
 
     const outputData=[
         ["Wallpaper is loaded.",1000],
-        [`Cyber Output Panel ${version} is loaded.`,50]
+        [`Cyber Output Panel ${version} is loaded.`,50],
+        ["Self-check execution:",20],
+        ["To protect user privacy, the detection results will be hidden.",10],
     ];
     for (let i=0;i<outputData.length;i++) {
         so.insertAdjacentText('beforeend', `${<string>outputData[i][0]}\n`);

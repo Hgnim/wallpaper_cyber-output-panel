@@ -1,0 +1,24 @@
+body{
+  background-color: black;
+}
+@font-face{
+  font-family: "unifont" ;
+  src: url("@/assets/font/unifont-16.0.02.otf");
+}
+p{
+  color: #2bff00;
+  white-space: pre-line; //保留\n
+  font-family: 'unifont',system-ui;
+}
+#startOutput{
+  margin: 2%;
+  position: absolute;
+}
+#main{
+  visibility: hidden;
+
+}
+#timerBar{
+  white-space: pre-wrap;
+  font-family: 'Courier New', Consolas, 'DejaVu Sans Mono', monospace;
+}

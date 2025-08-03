@@ -7,24 +7,21 @@
 <body>
 <p id="startOutput" class="unSelectable">
 </p>
+
 <div id="main">
-    <div class="container">
-        <div class="row">
-            <div class="col-6 border" id="timerBar">
-
-            </div>
-            <div class="col-6 border" id="musicBar">
-
-            </div>
-            <div class="col-4 border" id="fakeOutputBar">
-
-            </div>
-            <div class="col-4 border" id="effectBar-16">
-
-            </div>
-            <div class="col-4 border" id="effectBar-2">
-
-            </div>
+    <div class="sub-line line1">
+        <div class="sub-bar" id="timerBar">
+        </div>
+        <div class="sub-bar" id="musicBar">
+            <canvas id="AudioCanvas" style="height:100%; width:100%"></canvas>
+        </div>
+    </div>
+    <div class="sub-line line2">
+        <div class="sub-bar" id="fakeOutputBar">
+        </div>
+        <div class="sub-bar" id="effectBar-16">
+        </div>
+        <div class="sub-bar" id="effectBar-2">
         </div>
     </div>
 </div>

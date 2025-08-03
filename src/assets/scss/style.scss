@@ -1,3 +1,5 @@
+$fontColor:#2bff00;
+
 body{
   background-color: black;
 }
@@ -6,7 +8,7 @@ body{
   src: url("@/assets/font/unifont-16.0.02.otf");
 }
 p{
-  color: #2bff00;
+  color: $fontColor;
   white-space: pre-line; //保留\n
   font-family: 'unifont',system-ui;
 }
@@ -14,11 +16,43 @@ p{
   margin: 2%;
   position: absolute;
 }
+
 #main{
   visibility: hidden;
-
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
 }
+.sub-line{
+  gap:1%;
+  display: flex;
+  width: 100%;
+
+  &.line1{
+    gap: 6%;
+    width: 90%;
+    margin: 6% 5% 0 5%;
+  }
+  &.line2{
+
+  }
+}
+.sub-bar{
+  border: 1px solid #168000;
+  box-sizing: border-box;
+}
+
 #timerBar{
   white-space: pre-wrap;
   font-family: 'Courier New', Consolas, 'DejaVu Sans Mono', monospace;
+  font-size: 1vw;
+  text-align: center;
+  color: $fontColor;
+  flex:1 1 0; min-width:0;
+  height: min-content;
+  transform: translateY(50%);
+}
+#musicBar{
+  flex:1 1 0; min-width:0;
 }

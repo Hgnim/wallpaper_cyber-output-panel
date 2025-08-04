@@ -18,7 +18,6 @@ p{
 }
 
 #main{
-  visibility: hidden;
   justify-content: center;
   display: flex;
   flex-wrap: wrap;
@@ -55,4 +54,25 @@ p{
 }
 #musicBar{
   flex:1 1 0; min-width:0;
+  color: $fontColor;
+  font-size:  0.646vw;
+  line-height: 0.5;
+  letter-spacing: -0.068vw;
+  padding: 0.2vw 0 0.2vw 0;
+  text-align: center;
+  height: 16.6vw;
+  font-family: 'Courier New', Consolas, 'DejaVu Sans Mono', monospace;
+  position: relative;
+}
+#musicBar #musicBar_show{
+  white-space: pre-wrap;
+}
+#musicBar #musicBar_msg{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3vw;
+  font-family: 'unifont',system-ui;
+  //visibility: hidden;
 }

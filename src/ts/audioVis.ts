@@ -1,43 +1,69 @@
-let audioCanvas: any = null;
-let audioCanvasCtx: any = null;
+const musicBar:HTMLElement=document.getElementById("musicBar_show")!;
+const musicBar_msg:HTMLElement=document.getElementById("musicBar_msg")!;
 
 function wallpaperAudioListener(audioArray: any) {
-    // Clear the canvas and set it to black
-    audioCanvasCtx.fillStyle = 'rgb(0,0,0)';
-    audioCanvasCtx.fillRect(0, 0, audioCanvas.width, audioCanvas.height);
+    musicBar.textContent=String('').padStart(128,'0');
+    let otTxtSp:string[]=new Array<string>(50).fill('');
+    let nothingValue:number=0;//值为空的个数，如果全部为空则无音频
+    audioArray.forEach((audio:number) => {
+        function getValue(ad:number) {
+            if (ad>0){
+                ad*=5;//提高数值，避免效果不明显
+                if (ad<=1){
+                    return ad*otTxtSp.length;
+                }
+                else
+                    return otTxtSp.length;
+                }
+            else {
+                nothingValue++;
+                return 0;
+            }
+        }
+        const vaule=getValue(audio);
+        let num=0;
+        for (let i=otTxtSp.length-1;i>=0;i--) {
+            if (num<vaule)
+                otTxtSp[i]+='0';
+            else
+                otTxtSp[i]+=' ';
+            num++;
+        }
+    })
 
-    // Render bars along the full width of the canvas
-    var barWidth = Math.round(1.0 / 128.0 * audioCanvas.width);
-    var halfCount = audioArray.length / 2;
-
-    // Begin with the left channel in red
-    audioCanvasCtx.fillStyle = 'rgb(255,0,0)';
-    // Iterate over the first 64 array elements (0 - 63) for the left channel audio data
-    for (var i = 0; i < halfCount; ++i) {
-        // Create an audio bar with its hight depending on the audio volume level of the current frequency
-        var height = audioCanvas.height * Math.min(audioArray[i], 1);
-        audioCanvasCtx.fillRect(barWidth * i, audioCanvas.height - height, barWidth, height);
+    let outTxt:string="";
+    for (let j = 0; j < otTxtSp.length; j++) {
+        outTxt += otTxtSp[j];
+        if (j+1<otTxtSp.length)
+            outTxt+="\n";
     }
+    musicBar.textContent=outTxt;
 
-    // Now draw the right channel in blue
-    audioCanvasCtx.fillStyle = 'rgb(0,0,255)';
-    // Iterate over the last 64 array elements (64 - 127) for the right channel audio data
-    for (var i = halfCount; i < audioArray.length; ++i) {
-        // Create an audio bar with its hight depending on the audio volume level
-        // Using audioArray[191 - i] here to inverse the right channel for aesthetics
-        var height = audioCanvas.height * Math.min(audioArray[191 - i], 1);
-        audioCanvasCtx.fillRect(barWidth * i, audioCanvas.height - height, barWidth, height);
+    if (!(nothingValue<audioArray.length)){
+        musicBar_msg.style.visibility="visible";
+        musicBar_msg.textContent="No sound.";
+    }
+    else if (musicBar_msg.checkVisibility()){
+        musicBar_msg.style.visibility="hidden";
     }
 }
 
-// Get the audio canvas once the page has loaded
-audioCanvas = document.getElementById('AudioCanvas');
-
-// Get the 2D context of the canvas to draw on it in wallpaperAudioListener
-audioCanvasCtx = audioCanvas.getContext('2d');
-
 export function audioVis_startListen() {
-// Register the audio listener provided by Wallpaper Engine.
-    // @ts-ignore
-    window.wallpaperRegisterAudioListener(wallpaperAudioListener);
+    /*musicBar.textContent=String('').padStart(128,'0');
+    for (let i=0;i<50-1;i++){
+        musicBar.textContent+="\n0";
+    }
+    //musicBar.style.height=musicBar.clientHeight+"px";
+    musicBar.textContent='';
+    //初始化框，现在不需要了
+    */
+
+    try {
+        // @ts-ignore
+        window.wallpaperRegisterAudioListener(wallpaperAudioListener);
+    }
+    catch (e) {
+        musicBar_msg.style.visibility="visible";
+        musicBar_msg.textContent="Error.";
+    }
 }

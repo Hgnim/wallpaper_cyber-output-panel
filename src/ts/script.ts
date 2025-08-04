@@ -27,7 +27,7 @@ async function startFakeOutput(){
     await sleep(500);
 
     so.style.visibility='hidden';
-    document.getElementById('main')!.style.visibility='visible';
+    document.getElementById('main')!.style.display='';
 
     mainPageLoad();
 }

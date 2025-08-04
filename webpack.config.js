@@ -80,10 +80,10 @@ module.exports = {
                 },
             },
             {
-                test: /\.(ttf|woff|woff2)$/i,
+                test: /\.(ttf|woff|woff2|otf)$/i,
                 type: 'asset/resource',
                 generator: {
-                    filename: 'assets/fonts/[hash:10][ext][query]', // 指定打包路径和文件名
+                    filename: 'assets/font/[hash:10][ext][query]', // 指定打包路径和文件名
                 },
             }
         ],

@@ -1,4 +1,4 @@
-#赛博输出面板(CyberOutputPanel)
+# 赛博输出面板(CyberOutputPanel)
 
 Steam创意工坊：https://steamcommunity.com/sharedfiles/filedetails/?id=3541793131
 

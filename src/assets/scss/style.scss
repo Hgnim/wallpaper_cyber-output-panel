@@ -34,7 +34,10 @@ p{
     margin: 6% 5% 0 5%;
   }
   &.line2{
-
+    gap: 3%;
+    margin: 6% 5% 0 5%;
+    height: 25vw;
+    color: $fontColor;
   }
 }
 .sub-bar{
@@ -75,4 +78,22 @@ p{
   font-size: 3vw;
   font-family: 'unifont',system-ui;
   //visibility: hidden;
+}
+
+#outputBar{
+  flex:1 1 0; min-width:0;
+  font-family: 'Courier New', Consolas, 'DejaVu Sans Mono', monospace;
+  white-space: pre-wrap;
+  font-size: 1vw;
+  text-align: left;
+}
+#effectBar-16{
+  flex:1 1 0; min-width:0;
+  font-family: 'Courier New', Consolas, 'DejaVu Sans Mono', monospace;
+  white-space: pre-wrap;
+}
+#effectBar-2{
+  flex:1 1 0; min-width:0;
+  font-family: 'Courier New', Consolas, 'DejaVu Sans Mono', monospace;
+  white-space: pre-wrap;
 }

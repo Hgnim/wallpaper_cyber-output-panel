@@ -34,9 +34,9 @@ async function startFakeOutput(){
 
 function mainPageLoad(){
     timerBarStart();
-
+    outputBarStart();
 }
-
+let date;
 async function timerBarStart(){
     const timerBar=document.getElementById("timerBar")!;
     figlet.defaults({
@@ -57,7 +57,7 @@ async function timerBarStart(){
     }
 
     while (true) {
-        const date=new Date();
+        date=new Date();
         let lock:boolean=true;
         figlet.text(
             `${
@@ -102,5 +102,57 @@ async function timerBarStart(){
         );
         while (lock)
             await sleep(1000);
+    }
+}
+
+async function outputBarStart(){
+    const outputBar=document.getElementById("outputBar")!;
+
+    /*const max=21;
+    for (let i=0;i<max;i++){
+        outputBar.textContent+=String('').padStart(45,'$');
+        if (i+1<max)
+            outputBar.textContent+='\n';
+    }
+    //用于计算和调试边框大小
+    */
+    const maxRow=21;
+    const maxCol=45;
+    let outRowNum=0;//表示已经输出了多少行
+    let showTxtSp:string[]=new Array<string>(maxRow).fill('');
+    function outputLikeShell(opTxt:string){
+        let optTemp;
+        if (opTxt.length<=maxCol)
+            optTemp=opTxt;
+        else
+            optTemp=`${opTxt.substring(0,maxCol-3)}...`;
+
+        if (outRowNum<maxRow){
+            showTxtSp[outRowNum]=optTemp;
+            outRowNum++;
+        }else{
+            showTxtSp.splice(0,1);
+            showTxtSp.push(optTemp);
+        }
+        {
+            let outTxt:string="";
+            for (let j = 0; j < showTxtSp.length; j++) {
+                outTxt += showTxtSp[j];
+                if (j+1<showTxtSp.length)
+                    outTxt+="\n";
+            }
+            outputBar.textContent=outTxt;
+        }
+    }
+
+    date = new Date();
+    const outputData=[
+        ["Welcome, User [DATA EXPUNGED].",300],
+        [`Date: ${new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date)}, ${new Intl.DateTimeFormat('en-US', { month: 'long' }).format(date)} ${date.getDate()}, ${date.getFullYear()}`,400],
+        ["Have a nice day. :)",400],
+    ]
+    for (let i=0;i<outputData.length;i++){
+        outputLikeShell(<string>outputData[i][0]);
+        await sleep(<number>outputData[i][1]);
     }
 }

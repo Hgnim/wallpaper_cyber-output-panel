@@ -6,8 +6,6 @@ import figlet from "figlet";
 
 document.addEventListener('DOMContentLoaded', function () {
     startFakeOutput();
-
-    audioVis_startListen();
 });
 
 async function startFakeOutput(){
@@ -30,13 +28,15 @@ async function startFakeOutput(){
     document.getElementById('main')!.style.display='';
 
     mainPageLoad();
+    audioVis_startListen();
 }
 
 function mainPageLoad(){
     timerBarStart();
     outputBarStart();
+    effectBarStart();
 }
-let date;
+let date:Date;
 async function timerBarStart(){
     const timerBar=document.getElementById("timerBar")!;
     figlet.defaults({
@@ -154,5 +154,49 @@ async function outputBarStart(){
     for (let i=0;i<outputData.length;i++){
         outputLikeShell(<string>outputData[i][0]);
         await sleep(<number>outputData[i][1]);
+    }
+}
+
+async function effectBarStart(){
+    const effectBar:HTMLElement[]=[document.getElementById("effectBar-16")!,document.getElementById("effectBar-2")!];
+    /*
+    const max=16;
+    for (let i=0;i<max;i++){
+        effectBar[0].textContent+=String('').padStart(38,'$');
+        if (i+1<max)
+            effectBar[0].textContent+='\n';
+    }
+    //用于计算和调试边框大小
+    */
+    const maxNum=16*38;
+
+    function outputAsciiToHexAndBinary(input: string|null=null){
+        let inputText:string='';
+        if (input !=null)
+            inputText = input;
+        else {
+            const allChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:,.<>?';
+            let randomString = '';
+            for (let i = 0; i < 208; i++) {
+                randomString += allChars[Math.floor(Math.random() * allChars.length)];
+            }
+            inputText=randomString;
+        }
+
+        let hex = '';
+        let binary = '';
+
+        for (let i = 0; i < inputText.length; i++) {
+            const charC = inputText.charCodeAt(i);
+            hex += charC.toString(16).padStart(2, '0') + (i + 1 < inputText.length ? ' ' : '');
+            binary += charC.toString(2).padStart(8, '0') + (i + 1 < inputText.length ? ' ' : '');
+        }
+
+        effectBar[0].textContent=hex;
+        effectBar[1].textContent=binary;
+    }
+    while (true){
+        outputAsciiToHexAndBinary();
+        await sleep(800);
     }
 }

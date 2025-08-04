@@ -21,7 +21,11 @@ p{
   justify-content: center;
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
+
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
 }
 .sub-line{
   gap:1%;
@@ -31,7 +35,7 @@ p{
   &.line1{
     gap: 6%;
     width: 90%;
-    margin: 6% 5% 0 5%;
+    margin: 0 5% 0 5%;
   }
   &.line2{
     gap: 3%;
@@ -87,13 +91,17 @@ p{
   font-size: 1vw;
   text-align: left;
 }
-#effectBar-16{
+
+.effectBar{
   flex:1 1 0; min-width:0;
-  font-family: 'Courier New', Consolas, 'DejaVu Sans Mono', monospace;
+  font-family: 'unifont',system-ui;
   white-space: pre-wrap;
+  font-size: 1.42vw;
+  line-height: 1.08;
+  text-align: center;
+  overflow: hidden;
+}
+#effectBar-16{
 }
 #effectBar-2{
-  flex:1 1 0; min-width:0;
-  font-family: 'Courier New', Consolas, 'DejaVu Sans Mono', monospace;
-  white-space: pre-wrap;
 }

@@ -1,0 +1,30 @@
+{
+	"contentrating" : "Everyone",
+	"description" : "壁纸加载时会过一段输出，类似于电脑启动。\n壁纸包含时钟，音频可视化，和一些赛博特效。",
+	"file" : "index.html",
+	"general" : 
+	{
+		"properties" : 
+		{
+			"schemecolor" : 
+			{
+				"order" : 0,
+				"text" : "ui_browse_properties_scheme_color",
+				"type" : "color",
+				"value" : "0 0 0"
+			}
+		},
+		"supportsaudioprocessing" : true
+	},
+	"preview" : "preview.gif",
+	"ratingsex" : "none",
+	"ratingviolence" : "none",
+	"snapshotformat" : 1,
+	"snapshotoverlay" : "",
+	"tags" : [ "Cyberpunk" ],
+	"title" : "赛博输出面板 Cyber Output Panel",
+	"type" : "web",
+	"version" : 1,
+	"workshopid" : "3541793131",
+	"workshopurl" : "steam://url/CommunityFilePage/3541793131"
+}

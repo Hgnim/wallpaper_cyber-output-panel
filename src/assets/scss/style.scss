@@ -1,7 +1,9 @@
-$fontColor:#2bff00;
+@import "@/assets/scss/crtEffect";
 
 body{
-  background-color: black;
+  background-color: $backColor;
+  overflow: hidden;
+  margin: 0;
 }
 @font-face{
   font-family: "unifont" ;

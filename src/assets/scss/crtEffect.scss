@@ -1,0 +1,61 @@
+$fontColor:#8fff00;//经典终端绿
+$backColor:#001500;
+
+.crt{
+  position: relative;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background:$backColor;
+  filter: contrast(1.3) brightness(1.15) saturate(.7) sepia(.15) blur(.4px) hue-rotate(4deg) drop-shadow(0 0 3px #8fff00);
+  animation: flicker 0.3s infinite;
+}
+
+//边缘畸变
+.crt::before{
+  content:'';
+  position:absolute;
+  inset:-14%;
+  border:1.2rem solid #000;
+  border-radius:50%/15%;
+  box-shadow:
+          inset 0 0 80px 40px #000,
+          0 0 0 9999px #000;
+  pointer-events:none;
+  z-index:5;
+}
+
+//扫描线
+.scanlines{
+  position:absolute;
+  top:-10%;left:-10%;right:-10%;bottom:-10%;
+  pointer-events:none;
+  background: repeating-linear-gradient(
+                  0deg,
+                  rgba(0,0,0,0) 0,
+                  rgba(0,0,0,0) 2px,
+                  rgba(0,0,0,0.5) 3px,
+                  rgba(0,0,0,0.5) 4px
+  );
+  mix-blend-mode: multiply;
+}
+
+//光晕
+.glow{
+  position:absolute;
+  top:-10%;left:-10%;right:-10%;bottom:-10%;
+  background: radial-gradient(circle at center,
+          rgba(0,255,0,.06) 0%,
+          rgba(0,0,0,.8) 75%);
+  pointer-events:none;
+}
+
+//文字闪烁
+@keyframes flicker{
+  0%   {opacity:1;}
+  94%  {opacity:1;}
+  95%  {opacity:.8;}
+  96%  {opacity:1;}
+  100% {opacity:1;}
+}

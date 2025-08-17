@@ -97,8 +97,8 @@ async function startFakeOutput(){
 }
 
 function mainPageLoad(){
-    timeAndDateBarStart();
     outputBarStart();
+    timeAndDateBarStart();
     effectBarStart();
 }
 let date:Date;

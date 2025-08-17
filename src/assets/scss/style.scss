@@ -99,10 +99,22 @@ p{
 }
 
 #outputBar{
+  position: relative;
+  overflow: hidden;
+}
+#outputBar_text{
   font-family: 'Courier New', Consolas, 'DejaVu Sans Mono', monospace;
   white-space: pre-wrap;
   font-size: 1vw;
   text-align: left;
+  position: absolute;
+  bottom: 0;
+  min-height: 100%;
+
+  //阻止其提前转行
+  line-break: anywhere;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 .effectBar{

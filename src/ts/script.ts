@@ -8,6 +8,36 @@ document.addEventListener('DOMContentLoaded', function () {
     startFakeOutput();
 });
 
+function getShellHeadTime(strType:number=0):string{
+    const outputDate:Date=new Date();
+    switch (strType) {
+        case 0:
+            return `[${
+                    String(outputDate.getFullYear()).padStart(4, '0')
+                }/${
+                    String(outputDate.getMonth()).padStart(2, '0')
+                }/${
+                    String(outputDate.getDate()).padStart(2, '0')
+                } ${
+                    String(outputDate.getHours()).padStart(2, '0')
+                }:${
+                    String(outputDate.getMinutes()).padStart(2, '0')
+                }:${
+                    String(outputDate.getSeconds()).padStart(2, '0')
+                }]`;
+        case 1:
+            return `[${
+                String(outputDate.getHours()).padStart(2, '0')
+            }:${
+                String(outputDate.getMinutes()).padStart(2, '0')
+            }:${
+                String(outputDate.getSeconds()).padStart(2, '0')
+            }]`;
+        default:
+            return "error";
+    }
+}
+
 async function startFakeOutput(){
     const so:HTMLElement=document.getElementById("startOutput")!;
 
@@ -36,7 +66,7 @@ async function startFakeOutput(){
         ["Check the code integrity...",10],
         ["Done. Results: I don't know.",300],
         ["Check the program load status...",10],
-        ["Done. Results: Yes, it's loading.",200],
+        ["Done. Results: It's loading.",200],
         ["Program loading progress:",50],
         ["10%",10],
         ["20%",50],
@@ -52,7 +82,8 @@ async function startFakeOutput(){
         ["Switching right now.",10],
     ];
     for (let i=0;i<outputData.length;i++) {
-        so.insertAdjacentText('beforeend', `${<string>outputData[i][0]}\n`);
+        so.insertAdjacentText('beforeend', `${getShellHeadTime()} ${<string>outputData[i][0]}\n`);
+
         await sleep(<number>outputData[i][1]);
     }
 
@@ -92,17 +123,21 @@ async function timeAndDateBarStart() {
                 await sleep(1000);
         }
 
+        let lastH:number=-1;
+        //let lastMin:number=-1;
         while (true) {
             date = new Date();
             let lock: boolean = true;
-            figlet.text(
-                `${
-                    String(date.getHours()).padStart(2, '0')
-                }:${
-                    String(date.getMinutes()).padStart(2, '0')
-                }:${
-                    String(date.getSeconds()).padStart(2, '0')
-                }`,
+            const nowH=date.getHours();
+            //const nowMin=date.getMinutes();
+            const timeStr=`${
+                String(nowH).padStart(2, '0')
+            }:${
+                String(date.getMinutes()).padStart(2, '0')
+            }:${
+                String(date.getSeconds()).padStart(2, '0')
+            }`;
+            figlet.text(timeStr,
                 {
                     font: 'Banner3',
                     //width: timerBar.offsetWidth,
@@ -137,8 +172,14 @@ async function timeAndDateBarStart() {
                     }
                 }
             );
+            if (nowH>lastH){
+                if (lastH!=-1)
+                    outputBar_outputText(`Attention, now the time is ${timeStr}`);
+                lastH=nowH;
+            }
+            await sleep(1000);
             while (lock)
-                await sleep(1000);
+                await sleep(50);
         }
     }
 
@@ -146,7 +187,7 @@ async function timeAndDateBarStart() {
         const dateBar: HTMLElement = document.getElementById("dateBar")!;
         {
             let lock: boolean = true;
-            figlet.text('8888/88/88',
+            figlet.text('88/88/8888',
                 {
                     font: 'Banner3',
                 },
@@ -158,16 +199,16 @@ async function timeAndDateBarStart() {
                 await sleep(1000);
         }
 
+        date = new Date();//放在外侧开始时刷新一次，后续靠timerBar组件刷新即可
         while (true) {
-            date = new Date();
             let lock: boolean = true;
             figlet.text(
                 `${
-                    String(date.getFullYear()).padStart(4, '0')
-                }/${
                     String(date.getMonth()).padStart(2, '0')
                 }/${
                     String(date.getDate()).padStart(2, '0')
+                }/${
+                    String(date.getFullYear()).padStart(4, '0')
                 }`,
                 {
                     font: 'Banner3',
@@ -202,8 +243,9 @@ async function timeAndDateBarStart() {
                     }
                 }
             );
+            await sleep(3000);
             while (lock)
-                await sleep(3000);
+                await sleep(50);
         }
     }
 
@@ -211,44 +253,28 @@ async function timeAndDateBarStart() {
     dateBarStart();
 }
 
+export var outputBar_outputText:(outputText:string)=>void=
+    (outputText:string) =>{/*默认赋值空函数，避免被提前调用时报错*/};
 async function outputBarStart(){
-    const outputBar=document.getElementById("outputBar")!;
+    //const outputBar=document.getElementById("outputBar")!;
+    const outputBar_text:HTMLElement=document.getElementById("outputBar_text")!;
 
-    /*const max=21;
-    for (let i=0;i<max;i++){
-        outputBar.textContent+=String('').padStart(45,'$');
-        if (i+1<max)
-            outputBar.textContent+='\n';
-    }
-    //用于计算和调试边框大小
-    */
-    const maxRow=21;
-    const maxCol=45;
-    let outRowNum=0;//表示已经输出了多少行
-    let showTxtSp:string[]=new Array<string>(maxRow).fill('');
+    let shellLine:number = 0;
+    let olsClearLock:boolean = false;//清理程序锁，避免重复执行
+    const clearShellMaxLine:number = 44;//到达此临界值时清理shell
     function outputLikeShell(opTxt:string){
-        let optTemp;
-        if (opTxt.length<=maxCol)
-            optTemp=opTxt;
-        else
-            optTemp=`${opTxt.substring(0,maxCol-3)}...`;
-
-        if (outRowNum<maxRow){
-            showTxtSp[outRowNum]=optTemp;
-            outRowNum++;
-        }else{
-            showTxtSp.splice(0,1);
-            showTxtSp.push(optTemp);
+        if (shellLine>=clearShellMaxLine && !olsClearLock){
+            olsClearLock=true;
+            const changeText=outputBar_text.textContent.split('\n').slice(shellLine/2);
+            shellLine=changeText.length;
+            outputBar_text.textContent=changeText.join('\n');
+            olsClearLock=false;
         }
-        {
-            let outTxt:string="";
-            for (let j = 0; j < showTxtSp.length; j++) {
-                outTxt += showTxtSp[j];
-                if (j+1<showTxtSp.length)
-                    outTxt+="\n";
-            }
-            outputBar.textContent=outTxt;
-        }
+        outputBar_text.insertAdjacentText('beforeend', `${getShellHeadTime(1)} ${opTxt}\n`);
+        shellLine++;
+    }
+    outputBar_outputText=(outputText:string)=>{
+        outputLikeShell(outputText);
     }
 
     date = new Date();

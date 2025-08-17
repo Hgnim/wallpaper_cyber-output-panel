@@ -1,3 +1,5 @@
+import {outputBar_outputText} from "@/ts/script";
+
 const musicBar:HTMLElement=document.getElementById("musicBar_show")!;
 const musicBar_msg:HTMLElement=document.getElementById("musicBar_msg")!;
 

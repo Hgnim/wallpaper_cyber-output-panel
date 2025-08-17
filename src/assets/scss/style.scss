@@ -46,23 +46,35 @@ p{
     color: $fontColor;
   }
 }
+
+.sub-zone{
+  flex:1 1 0; min-width:0;
+}
 .sub-bar{
   border: 1px solid #168000;
   box-sizing: border-box;
 }
 
-#timerBar{
+@mixin timeAndDateBar{
   white-space: pre-wrap;
   font-family: 'Courier New', Consolas, 'DejaVu Sans Mono', monospace;
-  font-size: 1vw;
   text-align: center;
   color: $fontColor;
-  flex:1 1 0; min-width:0;
+  min-width:0;
   height: min-content;
-  transform: translateY(50%);
+  top: 9.5%;
+  position: relative;
+}
+#timerBar{
+  @include timeAndDateBar;
+  font-size: 1vw;
+}
+#dateBar{
+  @include timeAndDateBar;
+  font-size: .72vw;
+  border-top: 0;
 }
 #musicBar{
-  flex:1 1 0; min-width:0;
   color: $fontColor;
   font-size:  0.646vw;
   line-height: 0.5;
@@ -87,7 +99,6 @@ p{
 }
 
 #outputBar{
-  flex:1 1 0; min-width:0;
   font-family: 'Courier New', Consolas, 'DejaVu Sans Mono', monospace;
   white-space: pre-wrap;
   font-size: 1vw;
@@ -95,7 +106,6 @@ p{
 }
 
 .effectBar{
-  flex:1 1 0; min-width:0;
   font-family: 'unifont',system-ui;
   white-space: pre-wrap;
   font-size: 1.42vw;

@@ -66,77 +66,149 @@ async function startFakeOutput(){
 }
 
 function mainPageLoad(){
-    timerBarStart();
+    timeAndDateBarStart();
     outputBarStart();
     effectBarStart();
 }
 let date:Date;
-async function timerBarStart(){
-    const timerBar=document.getElementById("timerBar")!;
+async function timeAndDateBarStart() {
     figlet.defaults({
         fontPath: "./assets/font/figlet",
     });
-    {
-        let lock:boolean=true;
-        figlet.text('88:88:88',
-            {
-                font: 'Banner3',
-            },
-            (error, result) => {
-               timerBar.textContent = result!;
-               lock = false;
-            })
-        while (lock)
-         await sleep(1000);
-    }
 
-    while (true) {
-        date=new Date();
-        let lock:boolean=true;
-        figlet.text(
-            `${
-                String(date.getHours()).padStart(2,'0')
-            }:${
-                String(date.getMinutes()).padStart(2,'0')
-            }:${
-                String(date.getSeconds()).padStart(2,'0')
-            }`,
-            {
-                font: 'Banner3',
-                //width: timerBar.offsetWidth,
-            },
-            (error, result) => {
-                if(result!=null) {
-                    const oldTxtSp:string[]=timerBar.textContent.split('\n');
-                    const newTxtSp:string[]=result.split('\n');
-                    let outTxtSp:string[]=oldTxtSp;
+    async function timerBarStart() {
+        const timerBar = document.getElementById("timerBar")!;
+        {
+            let lock: boolean = true;
+            figlet.text('88:88:88',
+                {
+                    font: 'Banner3',
+                },
+                (error, result) => {
+                    timerBar.textContent = result!;
+                    lock = false;
+                })
+            while (lock)
+                await sleep(1000);
+        }
 
-                    async function run(){
-                        for (let i=0;i<oldTxtSp.length+1;i++) {
-                            if (i<oldTxtSp.length)
-                                outTxtSp[i]=String('').padStart(69,'#');
-                            if (i-1>=0)
-                                outTxtSp[i-1]=newTxtSp[i-1];
-                            {
-                                let outTxt:string="";
-                                for (let j = 0; j < outTxtSp.length; j++) {
-                                    outTxt += outTxtSp[j];
-                                    if (j+1<outTxtSp.length)
-                                        outTxt+="\n";
+        while (true) {
+            date = new Date();
+            let lock: boolean = true;
+            figlet.text(
+                `${
+                    String(date.getHours()).padStart(2, '0')
+                }:${
+                    String(date.getMinutes()).padStart(2, '0')
+                }:${
+                    String(date.getSeconds()).padStart(2, '0')
+                }`,
+                {
+                    font: 'Banner3',
+                    //width: timerBar.offsetWidth,
+                },
+                (error, result) => {
+                    if (result != null) {
+                        const oldTxtSp: string[] = timerBar.textContent.split('\n');
+                        const newTxtSp: string[] = result.split('\n');
+                        let outTxtSp: string[] = oldTxtSp;
+
+                        async function run() {
+                            for (let i = 0; i < oldTxtSp.length + 1; i++) {
+                                if (i < oldTxtSp.length)
+                                    outTxtSp[i] = String('').padStart(69, '#');
+                                if (i - 1 >= 0)
+                                    outTxtSp[i - 1] = newTxtSp[i - 1];
+                                {
+                                    let outTxt: string = "";
+                                    for (let j = 0; j < outTxtSp.length; j++) {
+                                        outTxt += outTxtSp[j];
+                                        if (j + 1 < outTxtSp.length)
+                                            outTxt += "\n";
+                                    }
+                                    timerBar.textContent = outTxt;
                                 }
-                                timerBar.textContent=outTxt;
+                                await sleep(100);
                             }
-                            await sleep(100);
+                            lock = false;
                         }
-                        lock = false;
+
+                        run();
                     }
-                    run();
                 }
-            }
-        );
-        while (lock)
-            await sleep(1000);
+            );
+            while (lock)
+                await sleep(1000);
+        }
     }
+
+    async function dateBarStart() {
+        const dateBar: HTMLElement = document.getElementById("dateBar")!;
+        {
+            let lock: boolean = true;
+            figlet.text('8888/88/88',
+                {
+                    font: 'Banner3',
+                },
+                (error, result) => {
+                    dateBar.textContent = result!;
+                    lock = false;
+                })
+            while (lock)
+                await sleep(1000);
+        }
+
+        while (true) {
+            date = new Date();
+            let lock: boolean = true;
+            figlet.text(
+                `${
+                    String(date.getFullYear()).padStart(4, '0')
+                }/${
+                    String(date.getMonth()).padStart(2, '0')
+                }/${
+                    String(date.getDate()).padStart(2, '0')
+                }`,
+                {
+                    font: 'Banner3',
+                },
+                (error, result) => {
+                    if (result != null) {
+                        const oldTxtSp: string[] = dateBar.textContent.split('\n');
+                        const newTxtSp: string[] = result.split('\n');
+                        let outTxtSp: string[] = oldTxtSp;
+
+                        async function run() {
+                            for (let i = 0; i < oldTxtSp.length + 1; i++) {
+                                if (i < oldTxtSp.length)
+                                    outTxtSp[i] = String('').padStart(97, '#');
+                                if (i - 1 >= 0)
+                                    outTxtSp[i - 1] = newTxtSp[i - 1];
+                                {
+                                    let outTxt: string = "";
+                                    for (let j = 0; j < outTxtSp.length; j++) {
+                                        outTxt += outTxtSp[j];
+                                        if (j + 1 < outTxtSp.length)
+                                            outTxt += "\n";
+                                    }
+                                    dateBar.textContent = outTxt;
+                                }
+                                await sleep(100);
+                            }
+                            lock = false;
+                        }
+
+                        run();
+                    }
+                }
+            );
+            while (lock)
+                await sleep(3000);
+        }
+    }
+
+    timerBarStart();
+    dateBarStart();
 }
 
 async function outputBarStart(){

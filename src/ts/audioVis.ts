@@ -1,4 +1,4 @@
-import {outputBar_outputText} from "@/ts/script";
+import {initLoadNumAdd, outputBar_outputText} from "@/ts/script";
 import {wallpaperMediaIntegration_enum} from "@/type/audioVis";
 import {sleep} from "@/ts/sleep";
 
@@ -145,11 +145,11 @@ export function audioVis_startListen() {
         //window.wallpaperRegisterMediaStatusListener(wallpaperMediaStatusListener);
         window.wallpaperRegisterMediaPropertiesListener(wallpaperMediaPropertiesListener);
 
-        outputBar_outputText("Note: Audio Visualization has been loaded.");
+        outputBar_outputText("Note: Audio Visualization has been loaded.");initLoadNumAdd();
     }
     catch (e) {
         musicBar_msg.style.visibility="visible";
         musicBar_msg.textContent="Error.";
-        outputBar_outputText("Error: Audio Visualization failed to load.");
+        outputBar_outputText("Error: Audio Visualization failed to load.");initLoadNumAdd();
     }
 }

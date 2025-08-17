@@ -89,17 +89,17 @@ async function startFakeOutput(){
 
     await sleep(500);
 
-    so.style.visibility='hidden';
+    so.style.display='none';//so.style.visibility='hidden';
     document.getElementById('main')!.style.display='';
 
     mainPageLoad();
-    audioVis_startListen();
 }
 
-function mainPageLoad(){
-    outputBarStart();
+async function mainPageLoad(){
+    await outputBarStart();
     timeAndDateBarStart();
     effectBarStart();
+    audioVis_startListen();
 }
 let date:Date;
 async function timeAndDateBarStart() {
@@ -125,6 +125,9 @@ async function timeAndDateBarStart() {
 
         let lastH:number=-1;
         //let lastMin:number=-1;
+
+        outputBar_outputText("Note: The clock component is loaded.");initLoadNum++;
+
         while (true) {
             date = new Date();
             let lock: boolean = true;
@@ -200,6 +203,9 @@ async function timeAndDateBarStart() {
         }
 
         date = new Date();//放在外侧开始时刷新一次，后续靠timerBar组件刷新即可
+
+        outputBar_outputText("Note: The calendar component is loaded.");initLoadNum++;
+
         while (true) {
             let lock: boolean = true;
             figlet.text(
@@ -253,8 +259,10 @@ async function timeAndDateBarStart() {
     dateBarStart();
 }
 
+export let initLoadNum:number = 0;//加载完成的组件个数
+export function initLoadNumAdd(){initLoadNum++;}
 export var outputBar_outputText:(outputText:string)=>void=
-    (outputText:string) =>{/*默认赋值空函数，避免被提前调用时报错*/};
+    (outputText:string) =>{/*默认赋值空函数，避免被提前调用时报错*/console.log(`outputBar_outputText: ${outputText}`);};
 async function outputBarStart(){
     //const outputBar=document.getElementById("outputBar")!;
     const outputBar_text:HTMLElement=document.getElementById("outputBar_text")!;
@@ -277,16 +285,23 @@ async function outputBarStart(){
         outputLikeShell(outputText);
     }
 
-    date = new Date();
-    const outputData=[
-        ["Welcome, User [DATA EXPUNGED].",300],
-        [`Date: ${new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date)}, ${new Intl.DateTimeFormat('en-US', { month: 'long' }).format(date)} ${date.getDate()}, ${date.getFullYear()}`,400],
-        ["Have a nice day. :)",400],
-    ]
-    for (let i=0;i<outputData.length;i++){
-        outputLikeShell(<string>outputData[i][0]);
-        await sleep(<number>outputData[i][1]);
-    }
+    outputLikeShell("Loading components asynchronously...");
+
+    (async () => {
+        while (initLoadNum<4)
+          await sleep(100);
+        date = new Date();
+        const outputData=[
+            ["Done, all loaded.",500],
+            ["Welcome, User [DATA EXPUNGED].",300],
+            [`Date: ${new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date)}, ${new Intl.DateTimeFormat('en-US', { month: 'long' }).format(date)} ${date.getDate()}, ${date.getFullYear()}`,400],
+            ["Have a nice day. :)",400],
+        ]
+        for (let i=0;i<outputData.length;i++){
+            outputLikeShell(<string>outputData[i][0]);
+            await sleep(<number>outputData[i][1]);
+        }
+    })().then();
 }
 
 async function effectBarStart(){
@@ -327,6 +342,7 @@ async function effectBarStart(){
         effectBar[0].textContent=hex;
         effectBar[1].textContent=binary;
     }
+    outputBar_outputText("Note: The code output component is loaded");initLoadNum++;
     while (true){
         outputAsciiToHexAndBinary();
         await sleep(800);

@@ -1,4 +1,5 @@
 @import "@/assets/scss/crtEffect";
+@import "@/assets/css/style.css";
 
 body{
   background-color: $backColor;
@@ -10,7 +11,7 @@ body{
   src: url("@/assets/font/unifont-16.0.02.otf");
 }
 p{
-  color: $fontColor;
+  color: var(--font-color);
   white-space: pre-line; //保留\n
   font-family: 'unifont',system-ui;
 }
@@ -45,7 +46,7 @@ p{
     gap: 3%;
     margin: 6% 5% 0 5%;
     height: 25vw;
-    color: $fontColor;
+    color: var(--font-color);
   }
 }
 
@@ -61,7 +62,7 @@ p{
   white-space: pre-wrap;
   font-family: 'Courier New', Consolas, 'DejaVu Sans Mono', monospace;
   text-align: center;
-  color: $fontColor;
+  color: var(--font-color);
   min-width:0;
   height: min-content;
   top: 9.5%;
@@ -77,7 +78,7 @@ p{
   border-top: 0;
 }
 #musicBar{
-  color: $fontColor;
+  color: var(--font-color);
   font-size:  0.646vw;
   line-height: 0.5;
   letter-spacing: -0.068vw;

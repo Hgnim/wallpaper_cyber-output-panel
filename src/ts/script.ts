@@ -1,6 +1,7 @@
 import {sleep} from "@/ts/sleep";
 import {version} from "@/init";
 import {audioVis_startListen} from "@/ts/audioVis";
+import {property_startListen} from "@/ts/property";
 
 import figlet from "figlet";
 
@@ -45,6 +46,9 @@ async function startFakeOutput(){
         const min_ = Math.ceil(min);
         return Math.floor(Math.random() * (Math.floor(max) - min_ + 1)) + min_;
     }
+    const lodingMaxTime:number
+        //= 1000;
+        = 10;//debug time
     const outputData=[
         ["Wallpaper is loaded.",1000],
         [`Cyber Output Panel ${version} is loaded.`,50],
@@ -72,27 +76,27 @@ async function startFakeOutput(){
         ["Check the program load status...",10],
         ["Done. Results: It's loading.",200],
         ["Program loading progress:",50],
-        ["5%",getRanInt(1,1000)],
-        ["10%",getRanInt(1,1000)],
-        ["15%",getRanInt(1,1000)],
-        ["20%",getRanInt(1,1000)],
-        ["25%",getRanInt(1,1000)],
-        ["30%",getRanInt(1,1000)],
-        ["35%",getRanInt(1,1000)],
-        ["40%",getRanInt(1,1000)],
-        ["45%",getRanInt(1,1000)],
-        ["50%",getRanInt(1,1000)],
-        ["55%",getRanInt(1,1000)],
-        ["60%",getRanInt(1,1000)],
-        ["65%",getRanInt(1,1000)],
-        ["70%",getRanInt(1,1000)],
-        ["75%",getRanInt(1,1000)],
-        ["80%",getRanInt(1,1000)],
-        ["85%",getRanInt(1,1000)],
-        ["90%",getRanInt(1,1000)],
-        ["95%",getRanInt(1,1000)],
-        ["100%",getRanInt(1,1000)],
-        ["Done.",getRanInt(1,1000)],
+        ["5%",getRanInt(1,lodingMaxTime)],
+        ["10%",getRanInt(1,lodingMaxTime)],
+        ["15%",getRanInt(1,lodingMaxTime)],
+        ["20%",getRanInt(1,lodingMaxTime)],
+        ["25%",getRanInt(1,lodingMaxTime)],
+        ["30%",getRanInt(1,lodingMaxTime)],
+        ["35%",getRanInt(1,lodingMaxTime)],
+        ["40%",getRanInt(1,lodingMaxTime)],
+        ["45%",getRanInt(1,lodingMaxTime)],
+        ["50%",getRanInt(1,lodingMaxTime)],
+        ["55%",getRanInt(1,lodingMaxTime)],
+        ["60%",getRanInt(1,lodingMaxTime)],
+        ["65%",getRanInt(1,lodingMaxTime)],
+        ["70%",getRanInt(1,lodingMaxTime)],
+        ["75%",getRanInt(1,lodingMaxTime)],
+        ["80%",getRanInt(1,lodingMaxTime)],
+        ["85%",getRanInt(1,lodingMaxTime)],
+        ["90%",getRanInt(1,lodingMaxTime)],
+        ["95%",getRanInt(1,lodingMaxTime)],
+        ["100%",getRanInt(1,lodingMaxTime)],
+        ["Done.",getRanInt(1,lodingMaxTime)],
         ["Switching right now.",10],
     ];
     for (let i=0;i<outputData.length;i++) {
@@ -114,6 +118,7 @@ async function mainPageLoad(){
     timeAndDateBarStart();
     effectBarStart();
     audioVis_startListen();
+    property_startListen();
 }
 let date:Date;
 async function timeAndDateBarStart() {

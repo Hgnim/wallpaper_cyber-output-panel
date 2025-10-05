@@ -2,8 +2,8 @@
   "name": "wallpaper_cyber-output-panel",
   "version": "1.2.0",
   "scripts": {
-    "build": "npm-run-all build:build build:copy",
-    "build:build": "webpack",
+    "build": "npm-run-all build:buildOnly build:copy",
+    "build:buildOnly": "webpack",
     "build:copy": "xcopy /e /y .\\dist D:\\SteamLibrary\\steamapps\\common\\wallpaper_engine\\projects\\myprojects\\cyber_output_pan",
     "serve": "webpack serve --mode=development",
     "deploy": "gh-pages -d dist"

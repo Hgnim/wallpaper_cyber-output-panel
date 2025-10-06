@@ -9,17 +9,23 @@ export class wp_color{
         this._wp_color = value;
     }*/
 
-    get rgbCssString():string | undefined{
-        if (this.value!=undefined){
-            let colorStr:string[] = this.value.split(' ');
+    static getRgbCssString(value:string|undefined):string|undefined{
+        if (value){
+            let colorStr:string[] = value.split(' ');
             let colorNum:number[];
 
             colorNum = colorStr.map(function(c:any) {
                 return Math.ceil(c * 255);
             });
-            return  'rgb(' + colorNum + ')';
+            return 'rgb(' + colorNum + ')';
         }
         else
             return undefined;
     }
+}
+export class wp_checkbox{
+    value: boolean|undefined;
+}
+export class wp_slider{
+    value: number|undefined;
 }

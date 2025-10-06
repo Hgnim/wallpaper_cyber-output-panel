@@ -2,7 +2,7 @@
 @import "@/assets/css/style.css";
 
 body{
-  background-color: $backColor;
+  background-color: var(--back-color);
   overflow: hidden;
   margin: 0;
 }
@@ -54,7 +54,7 @@ p{
   flex:1 1 0; min-width:0;
 }
 .sub-bar{
-  border: 1px solid #168000;
+  border: 1px solid var(--border-color);
   box-sizing: border-box;
 }
 

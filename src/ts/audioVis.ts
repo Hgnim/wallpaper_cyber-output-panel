@@ -1,30 +1,39 @@
 import {initLoadNumAdd, outputBar_outputText} from "@/ts/script";
 import {wallpaperMediaIntegration_enum} from "@/type/audioVis";
 import {sleep} from "@/ts/sleep";
+import {audioVisualizationMagnitude, musicInfoOutput} from "@/ts/data";
 
 const musicBar:HTMLElement=document.getElementById("musicBar_show")!;
 const musicBar_msg:HTMLElement=document.getElementById("musicBar_msg")!;
 
 let audioListener_valueCheck_lock:boolean=false;//数值检测锁，表示在音乐运行时数值检测器是否启动
-function wallpaperAudioListener(audioArray: any) {
+function wallpaperAudioListener(audioArray: number[]) {
     musicBar.textContent=String('').padStart(128,'0');
     let otTxtSp:string[]=new Array<string>(50).fill('');
     let nothingValue:number=0;//值为空的个数，如果全部为空则无音频
-    audioArray.forEach((audio:number) => {
-        function getValue(ad:number) {
-            if (ad>0){
-                ad*=5;//提高数值，避免效果不明显
-                if (ad<=1){
-                    return ad*otTxtSp.length;
-                }
-                else
-                    return otTxtSp.length;
-                }
-            else {
-                nothingValue++;
-                return 0;
+
+    {
+    function getNumFuncValue(inputNum: number, a:number = 25): number {
+        //对数函数，通过a进行控制函数曲线陡峭程度
+        return (Math.log10(1 + a * inputNum) / Math.log10(1 + a));
+    }
+    function getValue(ad:number) {
+        if (ad>0){
+            //outputBar_outputText(`1: ${ad}`);
+            ad = getNumFuncValue(ad,audioVisualizationMagnitude.value);
+            //outputBar_outputText(`2: ${ad}`);
+            if (ad<=1){
+                return ad*otTxtSp.length;
             }
+            else
+                return otTxtSp.length;
+            }
+        else {
+            nothingValue++;
+            return 0;
         }
+    }
+    audioArray.forEach((audio:number) => {
         const vaule=getValue(audio);
         let num=0;
         for (let i=otTxtSp.length-1;i>=0;i--) {
@@ -35,6 +44,7 @@ function wallpaperAudioListener(audioArray: any) {
             num++;
         }
     })
+    }
 
     let outTxt:string="";
     for (let j = 0; j < otTxtSp.length; j++) {
@@ -95,6 +105,7 @@ function musicBarPlayStatusChange(state: wallpaperMediaIntegration_enum,callId:n
 }
 
 function wallpaperMediaPropertiesListener(event:any) {
+    if(musicInfoOutput.value){
     const theDataHead:string[]=[
         "Title: ",
         "Artist: ",
@@ -128,6 +139,7 @@ function wallpaperMediaPropertiesListener(event:any) {
                 od+='.';
         }
         outputBar_outputText(`Music start. ${od}`);
+    }
     }
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "wallpaper_cyber-output-panel",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "scripts": {
     "build": "npm-run-all build:buildOnly build:copy",
     "build:buildOnly": "webpack",

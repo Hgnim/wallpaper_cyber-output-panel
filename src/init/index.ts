@@ -1,4 +1,4 @@
-export const version:string = 'v1.2.0.20250819';
+export const version:string = 'v1.3.0.20251007';
 
 import "@/assets/scss/style.scss";
 import "@/assets/scss/unSelectable.scss"

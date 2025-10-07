@@ -42,6 +42,7 @@ function getShellHeadTime(strType:number=0):string{
 
 async function startFakeOutput(){
     const so:HTMLElement=document.getElementById("startOutput")!;
+    const sobg:HTMLElement=document.getElementById("startOutput-background")!;
 
     function getRanInt(min: number, max: number): number {
         const min_ = Math.ceil(min);
@@ -97,7 +98,7 @@ async function startFakeOutput(){
         ["Done.",getRanInt(1,1000)],
         ["Switching right now.",10],
     ];
-    for (let i=0;i</*outputData.length*/1/*debug*/;i++) {
+    for (let i=0;i<outputData.length/*1/*debug*/;i++) {
         so.insertAdjacentText('beforeend', `${getShellHeadTime()} ${<string>outputData[i][0]}\n`);
 
         await sleep(<number>outputData[i][1]);
@@ -105,7 +106,7 @@ async function startFakeOutput(){
 
     await sleep(500);
 
-    so.style.display='none';//so.style.visibility='hidden';
+    sobg.style.display='none';
     document.getElementById('main')!.style.display='';
 
     mainPageLoad();

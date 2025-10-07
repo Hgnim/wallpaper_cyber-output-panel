@@ -15,6 +15,14 @@ p{
   white-space: pre-line; //保留\n
   font-family: 'unifont',system-ui;
 }
+#startOutput-background{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--back-color);
+}
 #startOutput{
   margin: 2%;
   position: absolute;

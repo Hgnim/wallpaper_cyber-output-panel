@@ -1,11 +1,158 @@
 {
 	"contentrating" : "Everyone",
-	"description" : "壁纸加载时会过一段输出，类似于电脑启动。\n壁纸包含时钟，音频可视化，和一些赛博特效。",
+	"description" : "壁纸加载时会过一段输出，类似于电脑启动。\r\n壁纸包含时钟，音频可视化，和一些赛博特效。\r\n\r\n如果壁纸有任何错误或有功能更新建议，请前往github开源仓库提出。\r\nGithub: https://github.com/Hgnim/wallpaper_cyber-output-panel\r\n\r\n注意：该程序的任何扫描输出都是假的，只是为了仪式感。该程序不会获取任何用户信息。",
 	"file" : "index.html",
 	"general" : 
 	{
 		"properties" : 
 		{
+			"_1" : 
+			{
+				"index" : 0,
+				"order" : 100,
+				"text" : "颜色",
+				"type" : "group",
+				"value" : ""
+			},
+			"_2" : 
+			{
+				"index" : 4,
+				"order" : 104,
+				"text" : "音频",
+				"type" : "group",
+				"value" : ""
+			},
+			"_3" : 
+			{
+				"index" : 7,
+				"order" : 107,
+				"text" : "效果",
+				"type" : "group",
+				"value" : ""
+			},
+			"_4" : 
+			{
+				"index" : 10,
+				"order" : 110,
+				"text" : "图像",
+				"type" : "group",
+				"value" : ""
+			},
+			"audiovisualizationmagnitude" : 
+			{
+				"fraction" : false,
+				"index" : 6,
+				"max" : 10000,
+				"min" : 1,
+				"order" : 106,
+				"text" : "音乐可视化幅度",
+				"type" : "slider",
+				"value" : 25
+			},
+			"backcolor" : 
+			{
+				"index" : 3,
+				"order" : 103,
+				"text" : "背景颜色",
+				"type" : "color",
+				"value" : "0 0.08235294117647059 0"
+			},
+			"backimg" : 
+			{
+				"index" : 11,
+				"order" : 111,
+				"text" : "背景图片",
+				"type" : "file",
+				"value" : ""
+			},
+			"backimgblur" : 
+			{
+				"fraction" : true,
+				"index" : 14,
+				"max" : 100,
+				"min" : 0,
+				"order" : 114,
+				"precision" : 3,
+				"step" : 0.01,
+				"text" : "图像模糊度",
+				"type" : "slider",
+				"value" : 0
+			},
+			"backimgopacity" : 
+			{
+				"fraction" : false,
+				"index" : 12,
+				"max" : 100,
+				"min" : 0,
+				"order" : 112,
+				"text" : "背景图片不透明度",
+				"type" : "slider",
+				"value" : 100
+			},
+			"backimgshow" : 
+			{
+				"index" : 13,
+				"options" : 
+				[
+					{
+						"label" : "覆盖",
+						"value" : "0"
+					},
+					{
+						"label" : "拉伸",
+						"value" : "1"
+					}
+				],
+				"order" : 113,
+				"text" : "图像填充方式",
+				"type" : "combo",
+				"value" : "0"
+			},
+			"bordercolor" : 
+			{
+				"index" : 2,
+				"order" : 102,
+				"text" : "边框颜色",
+				"type" : "color",
+				"value" : "0.08627450980392157 0.5019607843137255 0"
+			},
+			"fontcolor" : 
+			{
+				"index" : 1,
+				"order" : 101,
+				"text" : "字体颜色",
+				"type" : "color",
+				"value" : "0.5607843137254902 1 0"
+			},
+			"glowfollowmouse" : 
+			{
+				"index" : 8,
+				"order" : 108,
+				"text" : "辉光跟随鼠标",
+				"type" : "bool",
+				"value" : true
+			},
+			"glowstrength" : 
+			{
+				"fraction" : true,
+				"index" : 9,
+				"max" : 200,
+				"min" : 1,
+				"order" : 109,
+				"precision" : 3,
+				"step" : 0.01,
+				"text" : "辉光强度",
+				"type" : "slider",
+				"value" : 75
+			},
+			"musicinfooutput" : 
+			{
+				"index" : 5,
+				"order" : 105,
+				"text" : "输出音乐信息",
+				"type" : "bool",
+				"value" : true
+			},
 			"schemecolor" : 
 			{
 				"order" : 0,
@@ -24,7 +171,8 @@
 	"tags" : [ "Cyberpunk" ],
 	"title" : "赛博输出面板 Cyber Output Panel",
 	"type" : "web",
-	"version" : 1,
+	"version" : 5,
+	"visibility" : "public",
 	"workshopid" : "3541793131",
 	"workshopurl" : "steam://url/CommunityFilePage/3541793131"
 }

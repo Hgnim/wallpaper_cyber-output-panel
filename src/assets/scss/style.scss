@@ -22,6 +22,19 @@ p{
   min-height: 96%;
 }
 
+#background-img{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background-image: none;
+  background-size: cover;
+  filter: blur(var(--background-img_filter_blur));
+  opacity: 1;
+}
+
 #main{
   justify-content: center;
   display: flex;

@@ -29,3 +29,9 @@ export class wp_checkbox{
 export class wp_slider{
     value: number|undefined;
 }
+export class wp_file{
+    value: string | undefined;
+}
+export class wp_combo{
+    value: string|undefined;
+}

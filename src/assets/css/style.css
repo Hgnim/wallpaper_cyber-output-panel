@@ -2,4 +2,8 @@
     --font-color: #8fff00;
     --border-color: #168000;
     --back-color: #001500;
+
+    --crt_glow_end-value: 75%;
+
+    --background-img_filter_blur: 0px;
 }

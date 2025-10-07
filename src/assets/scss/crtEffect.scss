@@ -26,8 +26,8 @@
   z-index:5;
 }
 
-//扫描线
-.scanlines{
+//扫描线效果
+#crt_scanlines{
   position:absolute;
   top:-10%;left:-10%;right:-10%;bottom:-10%;
   pointer-events:none;
@@ -41,13 +41,13 @@
   mix-blend-mode: multiply;
 }
 
-//光晕
-.glow{
+//辉光效果
+#crt_glow{
   position:absolute;
   top:-10%;left:-10%;right:-10%;bottom:-10%;
   background: radial-gradient(circle at center,
-          rgba(0,255,0,.06) 0%,
-          rgba(0,0,0,.8) 75%);
+          rgba(0,0,0,.02) 0%,
+          rgba(0,0,0,.8) var(--crt_glow_end-value));
   pointer-events:none;
 }
 
